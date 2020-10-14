@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Prov1
 {
@@ -10,8 +11,9 @@ namespace Prov1
         private int rarity;
         private string category;
         private int actualValue;
-        private bool cursed;
-        private Random generator;
+        private bool cursed = false;
+        private Random generator = new Random();
+        private List<string> categorys = new List<string>();
 
         //Konstruktorn som gör huvuddel av programmet, tillkallar andra metoder, etc.
         public Book()
@@ -25,6 +27,10 @@ namespace Prov1
             {
                 cursed = true;
             }
+
+            GetName();
+            GetCategory();
+            PrintInfo();
         }
         
         //Skriver ut bokes info
@@ -58,22 +64,36 @@ namespace Prov1
             return category;
         }
 
+        //Genererar ett namn från arrayen med namn
         public string GetName()
         {
+            string[] names = {"name1", "name2", "name3"};
+            
+            name = names[generator.Next(names.Length)];
             return name;
         }
 
         public bool IsCursed()
         {
+            //Genererar ett värde och om det är 8 eller mindre, och om det stämmer då fortsätter cursed ha samma värde
             if (generator.Next(10) <= 8)
             {
-                return true;
+                cursed = cursed;
             }
 
-            else
+            //Annars kommer cursed byta värde (från false till true, vice versa)
+            else if (cursed == false)
             {
-                return false;
+                cursed = true;
             }
+
+            else if (cursed == true)
+            {
+                cursed = false;
+            }
+
+            //Slutligen returnerar den värdet på cursed
+            return cursed;
         }
     }
 }

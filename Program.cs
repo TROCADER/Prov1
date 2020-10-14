@@ -6,6 +6,7 @@ namespace Prov1
     {
         static void Main(string[] args)
         {
+            Customer customer = new Customer();
             Book book = new Book();
 
             Console.ReadLine();
